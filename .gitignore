@@ -67,3 +67,6 @@ IISExpress/**
 
 # JetBrains
 .idea/
+
+*.mdf
+*.ldf
