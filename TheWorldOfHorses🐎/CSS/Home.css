@@ -1,0 +1,46 @@
+﻿
+/* להלן עיצוב לחלק העליון של דף הבית - תמונה+ טקסט (בתוכה). ש  */
+.hero {
+    background-image: url("../Pics/BodyPic.png");
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+
+
+.hero-content {
+    position: relative;
+    color: white;
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+}
+
+    .hero-content h1 {
+        font-size: 48px;
+        margin-bottom: 10px;
+    }
+
+    .hero-content p {
+        font-size: 20px;
+    }
+
+
+/* להלן עיצוב לחלק האמצעי של דף הבית - פסקה שמסבירה על האתר (נונת רקע). ש  */
+
+.home-section {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+    .home-section h2 {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }

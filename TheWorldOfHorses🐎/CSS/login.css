@@ -1,0 +1,184 @@
+﻿body.login-page {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    font-size: 18px;
+}
+
+
+.allLoginPage {
+    display: flex;
+    width: 100%;
+    min-height: 100%;
+    align-items: stretch;
+}
+
+/* LEFT - זהה בדיוק לרגיסטר */
+.left {
+    flex: 1;
+    max-width: 78%;
+    background-image: url('../Pics/join - Register.Left.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .left .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 60px;
+    }
+
+    .left h1 {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+
+    .left p {
+        font-size: 20px;
+        max-width: 420px;
+    }
+
+/* RIGHT - זהה בדיוק לרגיסטר */
+.right {
+    flex: 0 0 530px;
+    min-width: 530px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f6f6f6;
+    align-self: stretch;
+}
+
+/* WRAPPER - זהה ל-register-wrapper */
+.login-wrapper {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.96);
+    padding: 40px 35px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+/* TITLE - זהה ל-step-title */
+.login-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+    .login-title::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: #ff7f50;
+        border-radius: 3px;
+    }
+
+/* INPUT GROUP - זהה לרגיסטר */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+    .input-group label {
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    .input-group  {
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
+
+        .input-group {
+            border-color: #ff7f50;
+            outline: none;
+        }
+
+
+
+/* BUTTONS - זהה לרגיסטר */
+.step-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+    .step-buttons button {
+        padding: 12px 0;
+        border-radius: 12px;
+        border: none;
+        background: #ff7f50;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        flex: 0 0 48%;
+    }
+
+        .step-buttons button:hover {
+            background: #ff4500;
+            transform: translateY(-2px);
+        }
+
+button.next::after {
+    content: " →";
+}
+
+/* LOGIN LINK - זהה לרגיסטר */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .login-link hr {
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    .login-link a {
+        color: #ff7f50;
+        text-decoration: none;
+    }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+@media (max-width: 900px) {
+    .left {
+        display: none;
+    }
+
+    .right {
+        flex: 1;
+    }
+
+    .login-wrapper {
+        width: 90%;
+    }
+}

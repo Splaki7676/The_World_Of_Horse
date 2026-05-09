@@ -1,0 +1,175 @@
+﻿body, html {
+    width: 100%;
+    background-color: white;
+    margin: 0; /* מבטל שוליים ברירת מחדל של הדפדפן */
+
+
+    font-size: 18px;
+    color: black;
+    font-family: Arial, sans-serif; 
+}
+
+body { /*ללמוד*/
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+html {
+    height: 100%;
+}
+
+
+a {
+    text-align: right;
+    font-size: 20px;
+    text-decoration: none; /* מראה את הקישור כטקסט רגיל */
+    color: inherit; /* מתאים את הצבע שיש לעצמו - אם הצבע הוא 1 אז הבצבע שלו גם יהיה 1 */
+}
+
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    box-sizing: border-box; /* גורם לכך שהריווח הפנימי והמסגרת ייכללו בתוך הרוחב של האלמנט,
+                               כך שהרוחב לא יגדל מעבר למה שהגדרנו ולא ייצא מגבולות התא בטבלה 
+                              
+                                                        בעזרת זה החישוב יהיה כך: 
+                       width = התוכן + padding + border
+                                                          בלי זה החישוב יהיה :
+                       width= width + padding + border
+
+    */
+
+    font-family: 'Quicksand', sans-serif;
+    color: black;
+    background-color:white;
+    border-bottom: 3px solid saddlebrown; /* קו הפרדה */
+}
+
+
+/* הכותרת בצד שמאל */
+.title h1 {
+    margin: 0;
+    font-size: 36px;
+    color: black;
+    text-align: left;
+}
+
+/* התפריט בצד ימין */
+.menu-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+    .menu-bar a:hover {
+        color: saddlebrown;
+    }
+
+
+
+.footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer-main {
+    background-color: black !important;
+    color: white;
+    flex: 8;
+}
+
+.footer-contact {
+    background-color: aqua ;
+    flex: 2;
+}
+
+
+body:not(.edit-page) input {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+    body:not(.edit-page) input:focus {
+        border-color: #ff7f50;
+        outline: none;
+    }
+
+
+
+
+
+
+
+
+.login-menu {
+    position: relative;
+    display: inline-block;
+    margin-left: auto; /* דוחף אותו לקצה הימני */
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%; /* גורם לזה להיות מתחת לתמונה */
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 130px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+    .dropdown a {
+        display: block; /* גורם לכל קישור להיות שורה חדשה */
+        padding: 12px;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+    }
+
+.login-menu:hover .dropdown {
+    display: block;
+}
+
+.logout-btn {
+    cursor: pointer;
+    color: red;
+    text-align: center;
+    background: none;
+    border: none; /*כדאי שזה יהיה כמו שורה רגילה  ולא יראו עיגול כפתור */
+}
+
+.user-info {
+    text-align: center;
+    align-items: center;
+    border-bottom: 2px solid saddlebrown; /* קו הפרדה */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+    .user-info span {
+        display: block; /* גורם לשם להיות בשורה נפרדת */
+        margin-top: 5px; /* רווח קטן מתחת לתמונה */
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
+    }
+
+.user-pic img {
+    width: 40px; /* גודל קבוע */
+    height: 40px;
+    border-radius: 50%; /* עגול */
+    display: block; /* גורם לתמונה להיות בשורה נפרדת */
+    margin: 0 auto; /* מרכז את התמונה */
+}

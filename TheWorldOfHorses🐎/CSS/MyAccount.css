@@ -1,0 +1,316 @@
+﻿/* ===== PAGE BACKGROUND ===== */
+body.account-page,
+body.edit-page {
+    background-color: #f0ece8;
+    min-height: 100vh;
+}
+
+/* ===== MAIN CARD ===== */
+.account-card {
+    max-width: 480px;
+    margin: 2.5rem auto;
+    background: #ffffff;
+    border: 1px solid #e8e0d8;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+/* ===== HEADER (myAccount - with avatar) ===== */
+.account-header {
+    background: #f7f3ef;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid #e8e0d8;
+}
+
+.account-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #ff7f50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 32px;
+    color: white;
+    font-weight: 500;
+}
+
+.account-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    color: #2c2c2c;
+}
+
+.account-header p {
+    font-size: 13px;
+    color: #888;
+    margin: 4px 0 0;
+}
+
+/* ===== EDIT HEADER (EditProfile - no avatar) ===== */
+.edit-header {
+    background: #f7f3ef;
+    padding: 1.4rem 1.5rem 1.2rem;
+    border-bottom: 1px solid #e8e0d8;
+}
+
+    .edit-header p:first-child {
+        font-size: 17px;
+        font-weight: 600;
+        margin: 0;
+        color: #2c2c2c;
+    }
+
+    .edit-header p:last-child {
+        font-size: 13px;
+        color: #999;
+        margin: 3px 0 0;
+    }
+
+/* ===== DETAIL ROWS ===== */
+.detail-row {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #f0ece8;
+}
+
+    .detail-row .label {
+        font-size: 12px;
+        color: #999;
+        margin-bottom: 5px;
+        font-weight: 400;
+    }
+
+    .detail-row .value {
+        font-size: 15px;
+        color: #2c2c2c;
+        font-weight: 500;
+    }
+
+    /* ===== INPUTS ===== */
+    .detail-row input {
+        font-size: 14px;
+        padding: 10px 14px;
+        border: 1px solid #e0d8d0;
+        border-radius: 10px;
+        background: #faf8f6;
+        color: #2c2c2c;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        outline: none;
+    }
+
+        .detail-row input:focus {
+            border-color: #ff7f50;
+            box-shadow: 0 0 0 3px rgba(255, 127, 80, 0.1);
+            background: #ffffff;
+        }
+
+        .detail-row input::placeholder {
+            color: #bbb;
+            font-size: 13px;
+        }
+
+/* ===== VERIFY ROW ===== */
+.verify-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+    .verify-row input {
+        flex: 1;
+    }
+
+/* ===== VERIFY BTN ===== */
+.verify-btn {
+    padding: 10px 18px !important;
+    background: #ff7f50 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    white-space: nowrap;
+    transition: background 0.2s !important;
+}
+
+    .verify-btn:hover {
+        background: #f06030 !important;
+    }
+
+/* ===== ACTIONS ===== */
+.account-actions {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-primary {
+    flex: 1;
+    padding: 11px;
+    background: #ffb39a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+    .btn-primary:hover {
+        background: #ff7f50;
+    }
+
+    .btn-primary:active {
+        transform: scale(0.98);
+    }
+
+.btn-secondary {
+    padding: 11px 18px;
+    background: #ffffff;
+    color: #555;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .btn-secondary:hover {
+        background: #f5f5f5;
+    }
+
+.btn-danger {
+    padding: 11px 18px;
+    background: #fff0f0;
+    color: #d94040;
+    border: 1px solid #f5c0c0;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .btn-danger:hover {
+        background: #ffe0e0;
+    }
+
+/* ===== ERROR MESSAGES ===== */
+div[id$="Div"] {
+    color: #e24b4a;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* ===== SUCCESS MESSAGE ===== */
+
+[id$="successMsg"] {
+    color: #3b6d11 ;
+    font-size: 14px ;
+    text-align: center;
+    padding: 0;
+    margin-top: 6px;
+    animation: fadeOut 0.5s ease 3s forwards;
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* ===== PROFILE PIC ===== */
+img.account-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 12px;
+    display: block;
+}
+
+/* ===== PROFILE PIC UPLOAD ===== */
+.pic-upload-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.avatar-preview {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #ff7f50;
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.upload-btn {
+    padding: 8px 16px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #555;
+    transition: background 0.2s;
+}
+
+    .upload-btn:hover {
+        background: #ebebeb;
+    }
+
+/* ===== CROP MODAL ===== */
+.crop-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.crop-box {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    max-width: 400px;
+    width: 90%;
+}
+
+    .crop-box img {
+        max-width: 100%;
+        max-height: 300px;
+        display: block;
+    }
+
+.crop-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    justify-content: flex-end;
+}
+
+

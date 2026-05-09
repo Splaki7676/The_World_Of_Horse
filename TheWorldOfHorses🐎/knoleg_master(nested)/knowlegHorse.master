@@ -1,0 +1,51 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="knowlegHorse.master.cs" Inherits="TheWorldOfHorses__.knowlegHorse" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../CSS/NutritionMaster.css" rel="stylesheet" />
+ 
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <div class="nutrition-layout">
+
+        <div class="nutrition-sidebar">
+            <h3>🐴 Horse Info</h3>
+            <ul>
+                <li><a href="HorseCare.aspx">🌿 Horse Care</a></li>
+                <li><a href="HorseNutritionOverview.aspx">🍽️ Nutrition Overview</a></li>
+                <li><a href="HayAndGrass.aspx">🌾 Hay &amp; Grass</a></li>
+                <li><a href="GrainsAndFeed.aspx">🌽 Grains &amp; Feed</a></li>
+                <li><a href="ForbiddenFoods.aspx">🚫 Forbidden Foods</a></li>
+                <li><a href="WaterNeeds.aspx">💧 Water Needs</a></li>
+                <li><a href="Supplements.aspx">💊 Supplements</a></li>
+                <li><a href="SeasonalFeeding.aspx">🍂 Seasonal Feeding</a></li>
+                <li><a href="FeedingByAge.aspx">🐣 Feeding by Age</a></li>
+                <li><a href="HorseHealth.aspx">🩺 Horse Health</a></li>
+                <li><a href="BondingWithHorse.aspx">💞 Bonding</a></li>
+                <li><a href="RidingPage.aspx">🏇 Riding</a></li>
+            </ul>
+        </div>
+
+        <div class="nutrition-main">
+            <asp:ContentPlaceHolder ID="NutritionContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+    </div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var links = document.querySelectorAll(".nutrition-sidebar ul li a");
+            var currentPage = window.location.pathname.split("/").pop();
+
+            links.forEach(function (link) {
+                var linkPage = link.getAttribute("href");
+                if (linkPage === currentPage) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+</asp:Content>

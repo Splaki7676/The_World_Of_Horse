@@ -1,0 +1,76 @@
+﻿.nutrition-layout {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.nutrition-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: #fdf6ec;
+    border: 1px solid #e8d5b0;
+    border-radius: 10px;
+    padding: 20px;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+    .nutrition-sidebar h3 {
+        color: #7a4f1e;
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 12px;
+        border-bottom: 2px solid #c8a96e;
+        padding-bottom: 8px;
+    }
+
+    .nutrition-sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .nutrition-sidebar ul li {
+            margin-bottom: 8px;
+        }
+
+            .nutrition-sidebar ul li a {
+                display: block;
+                color: #5a3a1a;
+                text-decoration: none;
+                padding: 7px 10px;
+                border-radius: 6px;
+                font-size: 0.9rem;
+                transition: background 0.2s;
+            }
+
+                .nutrition-sidebar ul li a:hover {
+                    background: #f0dbb0;
+                    color: #3a2000;
+                }
+
+                .nutrition-sidebar ul li a.active {
+                    background: #c8a96e;
+                    color: white;
+                    font-weight: bold;
+                }
+
+.nutrition-main {
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 700px) {
+    .nutrition-layout {
+        flex-direction: column;
+    }
+
+    .nutrition-sidebar {
+        width: 100%;
+        position: static;
+    }
+}

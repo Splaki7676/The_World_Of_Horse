@@ -1,0 +1,161 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="TheWorldOfHorses__.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="CSS/Master.css" rel="stylesheet" />
+
+
+
+
+</head>
+
+
+
+<body class="<%= BodyCssClass %>">
+    <!-- קלאס שישתנה בהתאם לעמוד בקוד שמאחורי הדף בת-->
+    <form id="form1" runat="server">
+        <div>
+
+
+            <table width="100%" class="main">
+                <tr>
+                    <td colspan="2" class="header" id="header">
+
+                        <div class="title">
+
+                            <a href="HomePage.aspx">
+                                <h1>The World Of Horse  </h1>
+                            </a>
+
+                        </div>
+
+                        <!-- למעלה הכותרת עם הכיתה שלה ולמטה התפריט עם כיתתו -->
+                        <div class="menu-bar">
+
+                            <a id="typePage" runat="server" href="TypesPage.aspx">horse types page</a>
+
+                            <a href="~/RidingPage.aspx" runat="server">riding on horses</a>
+                            <a href="~/Guess_the_Sound.aspx" runat="server">quiz</a>
+                            <a href="~/Sounds.aspx" runat="server">sounds</a>
+                            <a href="~/knoleg_master(nested)/BondingWithHorse.aspx" runat="server">horse_knoleg</a>
+                            
+
+
+                            <div class="login-menu">
+                                <%if (Session["id"] == null)
+                                    {                                   %>
+                                <img runat="server" src="~/Pics/user%20icon%20green.png" class="login-icon" width="40" />
+                                <%}
+                                    else if (Session["ProfilePic"] != null)
+                                    { %>
+                                <img src="ShowPic.ashx" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+                                <%}
+                                    else
+                                    { %>
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #ff7f50; color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 500;">
+                                    <%=Session["Username"] != null ? Session["Username"].ToString()[0].ToString().ToUpper() : "?" %>
+                                </div>
+                                <%} %>
+
+                                <div class="dropdown">
+                                    <!-- if OffLine (not conect) -->
+                                    <%if (Session["id"] == null)
+                                        { %>
+                                    <a runat="server" href="~/LoginPage.aspx">
+                                        <img runat="server" src="~/dropdown_pics/login_icon_black&&green.png" style="width: 15%;" />
+
+                                        Login</a>
+                                    <a runat="server" href="~/RegisterPage.aspx">
+                                        <img runat="server" src="~/dropdown_pics/register_icon_black.png" style="width: 15%;" />
+                                        Register</a>
+                                    <%}
+                                        else
+                                        {%>
+
+                                    <!-- User OnLine ( conect) -->
+                                    <div class="user-info">
+                                        <div class="user-pic">
+                                            <% if (Session["ProfilePic"] != null)
+                                                { %>
+                                            <img src="ShowPic.ashx" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+                                            <% }
+                                                else
+                                                { %>
+                                            <div style="width: 40px; height: 40px; border-radius: 50%; background: #ff7f50; color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 500;">
+                                                <%= Session["Username"] != null ? Session["Username"].ToString()[0].ToString().ToUpper() : "?" %>
+                                            </div>
+                                            <% } %>
+                                        </div>
+                                        <span>
+                                            <%=Session["Username"] %>
+                                        </span>
+                                    </div>
+
+                                    <a runat="server" href="~/myAccount.aspx">My Profile</a>
+                                    <a runat="server" href="~/Admin_Master_Nested/AdminDashboard.aspx">admin(try)</a>
+                                    <a runat="server" href="~/Admin_Master_Nested/AdminUsers.aspx">admin(try222)</a>
+                                    <a runat="server" href="~/Calculator.aspx">Calculator</a>
+                                    <a runat="server" href="~/EditProfile.aspx">Edit Profile</a>
+
+                                    <asp:Button ID="logOut" runat="server" Text="LogOut" OnClick="logOut_Click" CssClass="logout-btn" />
+                                    <%} %>
+                                </div>
+
+                            </div>
+                            <!-- end login menue-->
+
+
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="footer">
+                        <div class="footer-main">
+                            <h3>Our journy</h3>
+                            <p>
+                                it alll start at one day i met a horse.
+                            </p>
+                            <p>right when i met horse my eyes open to starts.</p>
+                            <p>
+                                i feel in love in horse
+                            </p>
+                        </div>
+                        <div class="footer-contact">
+                            <p>Conact with us</p>
+                            <input type="text" />
+                        </div>
+
+
+                    </td>
+
+
+                </tr>
+
+            </table>
+
+
+
+
+
+
+
+        </div>
+    </form>
+</body>
+</html>
+

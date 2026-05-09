@@ -1,0 +1,69 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+.project.lock.json
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# Test results
+TestResults/
+
+# Publish output
+publish/
+
+# ASP.NET temporary files
+*.dbmdl
+*.bak
+*.log
+
+# Other
+*.vspscc
+*._ReSharper*
+_ReSharper*/
+
+# Node dependencies (if any)
+node_modules/
+
+# Mac files
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# User-specific files
+*.credentials
+
+# Package directories
+.nuget/
+
+# Ignore build outputs and locks
+project.lock.json
+artifacts/
+
+# Local IIS Express
+IISExpress/**
+
+# JetBrains
+.idea/

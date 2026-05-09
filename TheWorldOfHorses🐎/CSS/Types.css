@@ -1,0 +1,358 @@
+﻿/* =============================== */
+/* BODY & PAGE STYLING */
+body.types-page {
+    font-family: 'Arial', sans-serif;
+    background-color: #fdf6f0; /* צבע רך ונעים לעין */
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* =============================== */
+/* HERO SECTION */
+.hero-container {
+    display: flex;
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+    position: relative;
+}
+
+/* צד שמאל – רקע + מלל */
+.hero-text {
+    flex: 1;
+    background-color: saddlebrown; /* רקע חום */
+    color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .hero-text h1 {
+        font-size: 42px;
+        margin-bottom: 20px;
+    }
+
+.hero-stats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .hero-stats li {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+.stat-label {
+    font-weight: bold;
+    color: #ffd700; /* צבע זהב ל-label */
+}
+
+/* צד ימין – תמונה */
+.hero-image {
+    flex: 1;
+}
+
+    .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+/* =============================== */
+/* SEARCH SECTION */
+.search-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#searchInput {
+    width: 300px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: all 0.3s;
+}
+
+    #searchInput:focus {
+        border-color: #a0522d;
+        box-shadow: 0 0 8px rgba(160,82,45,0.5);
+    }
+
+/* =============================== */
+/* CARDS CONTAINER – מקום לכל הקלפים */
+.horse-cards-container {
+    display: flex;
+    flex-wrap: wrap; /* אם אין מקום, יעבור שורה */
+    justify-content: flex-start; /* מתחיל משמאל */
+    gap: 20px; /* רווח אחיד בין קלפים */
+    padding: 20px; /* רווח פנימי מהדף */
+}
+
+/* הקלף עצמו */
+.horse-card {
+    width: 360px;
+    height: 400px;
+    perspective: 1200px; /* מאפשר אפקט תלת־מימד */
+    margin: 20px;
+    display: inline-block;
+}
+/* החלק הפנימי שמסתובב */
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+    /*  אפקט סיבוב בעת לחיצה - בעזרת גאווה סקריפט  */
+    .card-inner.flipped {
+        transform: rotateY(180deg);
+    }
+/* צד קדמי ואחורי */
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* מסתיר צד אחורי בזמן סיבוב */
+    border-radius: 15px;
+    overflow: hidden;
+}
+    /* צד קדמי */
+    .card-front img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+.horse-name {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0,0,0,0.6); /* רקע כהה שקוף מאחורי הטקסט */
+    color: #fff;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+/* צד אחורי */
+.card-back {
+    color: white;
+    font-weight: bold;
+    transform: rotateY(180deg); /* הצד האחורי מתחיל הפוך */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    cursor: default;
+}
+
+.horse-stats {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+    .horse-stats li {
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+.stat-label {
+    font-weight: normal;
+    margin-right: 5px;
+    color: #ffd700; /* צבע זהב ל-label */
+}
+
+
+.horse-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* שהתמונה תתאים למסגרת */
+    border-radius: 10px; /* פינות מעוגלות כמו הקלף */
+    display: block;
+}
+/* Favorite-Booton */
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 40px;
+    cursor: pointer;
+    color: white; /* לב ריק */
+    transition: color 0.3s;
+    user-select: none;
+}
+
+    .favorite-btn.active {
+        color: #e74c3c; /* לב מלא אדום */
+    }
+
+/* Section Divider */
+/* Section Divider עם קו אופקי וטקסט במרכז */
+.section-divider {
+    display: flex; /* מסדר קו + טקסט באותה שורה */
+    align-items: center; /* ממרכז אנכי של הקו והטקסט */
+    margin: 30px 0;
+    width: 100%;
+}
+
+    .section-divider::before,
+    .section-divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 2px solid #ccc; /* הקו */
+        height: 0; /* כדי שלא ישתנה גובה */
+    }
+
+    .section-divider span {
+        display: inline-block; /* חשוב כדי שיהיה מובן לגמרי */
+        padding: 0 15px;
+        font-weight: bold;
+        color: #555;
+        text-transform: uppercase;
+        background-color: #fdf6f0; /* רקע דף – כדי שהקו לא יגיע מאחור */
+    }
+
+/* =============================== */
+/* RESPONSIVE MEDIA QUERIES */
+
+/* ===== טאבלט ===== */
+@media (max-width: 1024px) {
+    .hero-card {
+        width: 500px;
+        height: 300px;
+    }
+
+    .horse-card {
+        width: 300px;
+        height: 350px;
+    }
+
+    #searchInput {
+        width: 250px;
+    }
+}
+
+/* ===== סמארטפון / מכשירים קטנים ===== */
+@media (max-width: 768px) {
+    .hero-container {
+        padding: 15px 0;
+    }
+
+    .hero-card {
+        width: 90%; /* לוקח כמעט את כל רוחב המסך */
+        height: 250px;
+    }
+
+    .horse-card {
+        width: 90%;
+        height: 320px;
+        margin: 10px auto; /* מרכז את הקלפים עם רווח קטן */
+        display: block; /* כל קלף בשורה נפרדת */
+    }
+
+    #searchInput {
+        width: 80%;
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+
+    .horse-cards-container {
+        justify-content: center; /* מרכז את כל הקלפים */
+        gap: 15px;
+        padding: 15px;
+    }
+}
+
+
+/* Empty Message – למרכז טקסט בהודעות */
+.empty-message {
+    font-size: 20px;
+    font-weight: bold;
+    color: #555;
+    width: 100%; /* תופס את רוחב המיכל */
+    text-align: center; /* מרכז את הטקסט */
+    margin: 20px 0; /* רווח מעל ומתחת */
+    display: none; /* מוסתר כברירת מחדל */
+}
+
+.hero-empty {
+    background-color: white; /* רקע אחיד */
+    color: white; /* צבע ראשוני */
+    padding: 80px; /* רווח פנימי גדול */
+    border-radius: 15px; /* פינות כמו הקלף */
+    box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+}
+.heroText-empty {
+    color: black;
+    background-color: white;
+    text-align: center;
+    align-items: center;
+    font-size: 42px; /* אותו גודל כמו כותרת סוס */
+    font-weight: bold;
+}
+
+
+
+.hero-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+    .hero-arrow:hover {
+        opacity: 1;
+    }
+
+    .hero-arrow.left {
+        left: 20px;
+    }
+
+    .hero-arrow.right {
+        right: 20px;
+    }
+
+
+
+horse-group-fast {
+    color:black;
+    font-weight: normal;
+    margin-right: 5px;
+}
+.group-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
