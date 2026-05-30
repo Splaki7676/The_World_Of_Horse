@@ -38,6 +38,16 @@ namespace TheWorldOfHorses__.Admin_Master_Nested_
                 SqlCommand cmdTop = new SqlCommand("SELECT MAX(BestScore) FROM GameScores", con);
                 object top = cmdTop.ExecuteScalar();
                 lblTopScore.Text = (top != null && top != DBNull.Value) ? top.ToString() : "0";
+
+
+                // 🟢 Online Users (Application)
+                lblOnlineUsers.Text =
+                    (Application["OnlineUsers"] ?? 0).ToString();
+
+                // 🔵 Logged In Users (Application)
+                lblLoggedInUsers.Text =
+                    (Application["LoggedInUsers"] ?? 0).ToString();
+
             }
         }
     }

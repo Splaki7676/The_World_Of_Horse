@@ -13,8 +13,8 @@
                 <th>Favorite Breed</th>
                 <th>Best Score</th>
                 <th>Attempts</th>
-                <th>Actions</th>
                 <th>Admin</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -31,9 +31,7 @@
                         <td><%# (bool)(Eval("IsAdmin") ?? false) ? "✅ Admin" : "" %></td>
                         <td>
                             <a runat="server" href='<%# "~/Admin_Master_Nested/AdminEditUser.aspx?id=" + Eval("Id") %>'>✏️ Edit</a>
-                            <asp:Button runat="server" Text="🚫 Hide" CssClass="btn-hide"
-                                CommandArgument='<%# Eval("Id") %>'
-                                OnClick="btnHide_Click" />
+                           
                         </td>
                     </tr>
                 </ItemTemplate>

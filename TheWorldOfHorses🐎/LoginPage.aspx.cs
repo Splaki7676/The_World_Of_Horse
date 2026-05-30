@@ -45,6 +45,11 @@ namespace TheWorldOfHorses__
                         Session["Username"] = Username;
                         Session["id"] = obj;
 
+                        Application.Lock();
+                        Application["LoggedInUsers"] =
+                            (int)Application["LoggedInUsers"] + 1;
+                        Application.UnLock();
+
                         // שליפת mail מה-DB ושמירה ב-Session
                         SqlCommand cmdMail = new SqlCommand(
                             "SELECT mail FROM Users WHERE id=@id", con);
@@ -60,8 +65,11 @@ namespace TheWorldOfHorses__
                             Session["ProfilePic"] = (byte[])pic;
 
                         // 🆕 קביעת אדמין לפי ID
-                        int userId = Convert.ToInt32(obj);
-                        Session["IsAdmin"] = (userId == 19);
+                        SqlCommand cmdIsAdmin = new SqlCommand(
+                           "SELECT IsAdmin FROM Users WHERE id=@id", con);
+                        cmdIsAdmin.Parameters.AddWithValue("@id", obj);
+                        object isAdmin = cmdIsAdmin.ExecuteScalar();
+                        Session["IsAdmin"] = (isAdmin != null && isAdmin != DBNull.Value && (bool)isAdmin);
 
 
                         Response.Redirect("HomePage.aspx");

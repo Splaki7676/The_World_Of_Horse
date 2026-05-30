@@ -46,8 +46,15 @@ namespace TheWorldOfHorses__
 
         protected void logOut_Click(object sender, EventArgs e)
         {
+
+            Application.Lock();
+            Application["LoggedInUsers"] =
+                Math.Max(0, (int)Application["LoggedInUsers"] - 1);
+            Application.UnLock();
+
             ResetInfo();
             Response.Redirect("HomePage.aspx");
+
 
         }
         public void ResetInfo()

@@ -34,25 +34,28 @@ namespace TheWorldOfHorses__
                 SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True");
                 con.Open();
                 string s = "delete from Users where id=" + int.Parse(Session["id"].ToString()) + "";
-                SqlDataAdapter da = new SqlDataAdapter(s, con);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                SqlCommand cmd = new SqlCommand(s, con);
+                cmd.ExecuteNonQuery(); ;
 
                 con.Close();
+
+
+                Application.Lock();
+                Application["LoggedInUsers"] =
+                    Math.Max(0, (int)Application["LoggedInUsers"] - 1);
+                Application.UnLock();
+
+
                 Session.Clear();
                 Session.Abandon();
-                Response.Redirect("Register.aspx");
+                Response.Redirect("RegisterPage.aspx");
             }
 
         }
 
         protected void logOF_Click(object sender, EventArgs e)
         {
-            if (Session["id"] != null)
-            {
-                ResetInfo();
-            }
-            else ResetInfo();
+            ResetInfo();
             Response.Redirect("LoginPage.aspx");
         }
 

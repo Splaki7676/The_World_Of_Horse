@@ -1,27 +1,54 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin_Master_Nested/Admin.master" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="TheWorldOfHorses__.Admin_Master_Nested_.AdminDashboard" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="AdminContent" runat="server">
 
-     <h2>📊 Dashboard</h2>
+    <h2>📊 Dashboard</h2>
 
     <div style="display: flex; gap: 20px; flex-wrap: wrap;">
 
         <div class="stat-card">
             <div class="stat-icon">👥</div>
-            <div class="stat-number"><asp:Label ID="lblTotalUsers" runat="server" Text="0" /></div>
+            <div class="stat-number">
+                <asp:Label ID="lblTotalUsers" runat="server" Text="0" /></div>
             <div class="stat-label">Total Users</div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon">🎮</div>
-            <div class="stat-number"><asp:Label ID="lblTotalGames" runat="server" Text="0" /></div>
+            <div class="stat-number">
+                <asp:Label ID="lblTotalGames" runat="server" Text="0" /></div>
             <div class="stat-label">Total Games Played</div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon">🏆</div>
-            <div class="stat-number"><asp:Label ID="lblTopScore" runat="server" Text="0" /></div>
+            <div class="stat-number">
+                <asp:Label ID="lblTopScore" runat="server" Text="0" /></div>
             <div class="stat-label">Top Score</div>
         </div>
+
+
+
+
+        <div class="stat-card">
+            <div class="stat-icon">🟢</div>
+            <div class="stat-number">
+                <asp:Label ID="lblOnlineUsers" runat="server" Text="0" />
+            </div>
+            <div class="stat-label">Online Users</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🔵</div>
+            <div class="stat-number">
+                <asp:Label ID="lblLoggedInUsers" runat="server" Text="0" />
+            </div>
+            <div class="stat-label">Logged In Users</div>
+        </div>
+
+
+
+
 
     </div>
 

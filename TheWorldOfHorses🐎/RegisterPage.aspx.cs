@@ -185,10 +185,18 @@ namespace TheWorldOfHorses__
                     Session["favoriteBreed"] = favoriteBreed;
                     Session["mail"] = mail;
 
+                    Application.Lock();
+                    Application["LoggedInUsers"] =
+                        (int)Application["LoggedInUsers"] + 1;
+                    Application.UnLock();
+
+
+
                     Response.Redirect("HomePage.aspx");
 
 
                 }
+
 
             }
 
