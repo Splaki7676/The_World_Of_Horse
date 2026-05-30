@@ -60,72 +60,8 @@
 
                 <!-- הקלפים נוצרים אוטומטית מ-JS -->
 
-
             <!-- כאן נכניס את שאר other-cards" -->
 
-           <%-- <!-- קלף סוס -->
-            <div class="horse-card">
-                <div class="card-inner">
-
-                    <!-- צד קדמי -->
-                    <div class="card-front">
-                        <img src="Pics/ArabianHorsePic.png" alt="Arabian Horse" class="horse-img" />
-                        <div class="horse-name">Arabian Horse</div>
-                        <div class="favorite-btn" data-horse="Arabian Horse">❤</div>
-                    </div>
-
-                    <!-- צד אחורי -->
-                    <div class="card-back"  data-bg-color="saddlebrown" style="background-color: saddlebrown;">
-                        <ul class="horse-stats">
-                            <li><span class="stat-label">Maximum Speed:</span> 65 km/h</li>
-                            <li><span class="stat-label">Height:</span> 150–160 cm</li>
-                            <li><span class="stat-label">Color:</span> Bay, Gray</li>
-                            <li><span class="stat-label">Temperament:</span> Intelligent, Energetic</li>
-                            <li><span class="stat-label">Description:</span>            Arabian horses are elegant and resilient. Known for their endurance and loyalty, 
-they are often used in long-distance riding and shows. Their graceful appearance 
-makes them one of the most admired horse breeds in the world.
-                            </li>
-                            <li><span class="stat-label">*Fun Fact:</span> Loves long rides in the desert 🌵</li>
-
-                        </ul>
-
-                    </div>
-                    <!-- end card-back -->
-                </div>
-                <!-- end card-inner -->
-            </div>
-            <!-- end horse-card  -->
-
-
-            <div class="horse-card">
-                <div class="card-inner">
-
-                    <!-- צד קדמי -->
-                    <div class="card-front">
-                        <img src="Pics/BodyPic.png" alt="Arabian Horse" class="horse-img" />
-                        <div class="horse-name">EX</div>
-                        <div class="favorite-btn" data-horse="EX">❤</div>
-                    </div>
-
-                    <!-- צד אחורי -->
-                    <div class="card-back"  data-bg-color="blue" style="background-color:blue;">
-                        <ul class="horse-stats">
-                            <li><span class="horse-group-fast">Group:</span>fast horse</li>
-                            <li><span class="stat-label">Maximum Speed:</span> AAAAAAAAAAAAA km/h</li>
-                            <li><span class="stat-label">Height:</span> 150AAAAAAAAAAAAA160 cm</li>
-                            <li><span class="stat-label">Color:</span> Bay, Gray</li>
-                            <li><span class="stat-label">Temperament:</span> 150AAAAAAAAAAAAA160, Energetic</li>
-                            <li><span class="stat-label">Description:</span>            2222222222222222222222222222222
-                            </li>
-                            <li><span class="stat-label">*Fun Fact:</span> =================AAAAA 🌵</li>
-
-                        </ul>
-
-                    </div>
-                    <!-- end card-back -->
-                </div>
-                <!-- end card-inner -->
-            </div>--%>
         </div>
         <!-- end other-cards   -->
     </div>

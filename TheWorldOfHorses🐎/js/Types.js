@@ -390,327 +390,231 @@ const horsesData = [
     }
 ];
 
+
 // ===============================
-// פונקציה ליצירת קלפים דינמית
+// מצב כללי
+// ===============================
+let favoritesList = [];
+let horseCards = [];
+let heroIndex = 0;
+
+// ===============================
+// אלמנטים מה־DOM
+// ===============================
+const searchInput = document.getElementById('searchInput');
+const favoritesContainer = document.querySelector('.favorite-cards');
+const otherContainer = document.querySelector('.other-cards');
+const noResultsEl = document.querySelector('#noResults');
+const heroContainer = document.querySelector(".hero-container");
+
+// ===============================
+// HERO - הצגת סוס
+// ===============================
+function setHero(horse) {
+    document.getElementById("hero-name").textContent = horse.name;
+    document.getElementById("hero-img").src = horse.image;
+
+    document.getElementById("hero-stats").innerHTML = `
+        <li><span class="stat-label">Speed:</span> ${horse.speed}</li>
+        <li><span class="stat-label">Height:</span> ${horse.height}</li>
+        <li><span class="stat-label">Temperament:</span> ${horse.temperament}</li>
+        <li><span class="stat-label">Description:</span> ${horse.description}</li>
+        <li><span class="stat-label">*Fun Fact:</span> ${horse.funFact}</li>
+    `;
+}
+
+function getHeroList() {
+    return horsesData.filter(h => favoritesList.includes(h.name));
+}
+
+function updateHero() {
+    const heroList = getHeroList();
+
+    if (!heroList.length) {
+        document.getElementById("hero-name").textContent = "No Favorites Yet";
+        document.getElementById("hero-img").src = "";
+        document.getElementById("hero-stats").innerHTML = "<li>Add favorites to see them here</li>";
+        return;
+    }
+
+    heroIndex = heroIndex % heroList.length;
+    setHero(heroList[heroIndex]);
+}
+
+// ניווט ב־Hero בלחיצה ימין/שמאל
+heroContainer.addEventListener("click", (e) => {
+    const rect = heroContainer.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+
+    const heroList = getHeroList();
+    if (!heroList.length) return;
+
+    if (clickX > rect.width / 2) {
+        heroIndex = (heroIndex + 1) % heroList.length;
+    } else {
+        heroIndex = (heroIndex - 1 + heroList.length) % heroList.length;
+    }
+
+    setHero(heroList[heroIndex]);
+});
+
+// ===============================
+// יצירת קלף סוס
 // ===============================
 function createHorseCard(horse) {
-    const card = document.createElement('div');
-    card.className = 'horse-card';
+    const card = document.createElement("div");
+    card.className = "horse-card";
 
-    card.innerHTML = `
-        <div class="card-inner">
-            <div class="card-front">
-                ${horse.image
-            ? `<img src="${horse.image}" alt="${horse.name}" class="horse-img" />`
-            : `<div class="horse-placeholder" style="background: linear-gradient(135deg, ${horse.color}cc, ${horse.color}66); width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:80px;">🐎</div>`
-        }
-                <div class="horse-name">${horse.name}</div>
-                <div class="group-badge" style="background-color:${horse.color}">${horse.groupLabel}</div>
-                <div class="favorite-btn" data-horse="${horse.name}">❤</div>
+    const inner = document.createElement("div");
+    inner.className = "card-inner";
+
+    inner.innerHTML = `
+        <div class="card-front">
+            ${horse.image
+            ? `<img src="${horse.image}" class="horse-img">`
+            : `<div class="horse-placeholder">🐎</div>`}
+
+            <div class="horse-name">${horse.name}</div>
+
+            <div class="group-badge" style="background:${horse.color}">
+                ${horse.groupLabel}
             </div>
-            <div class="card-back" data-bg-color="${horse.color}" style="background-color:${horse.color};">
-                <ul class="horse-stats">
-                    <li><span class="stat-label">Group:</span> ${horse.groupLabel}</li>
-                    <li><span class="stat-label">Maximum Speed:</span> ${horse.speed}</li>
-                    <li><span class="stat-label">Height:</span> ${horse.height}</li>
-                    <li><span class="stat-label">Color:</span> ${horse.horseColor}</li>
-                    <li><span class="stat-label">Temperament:</span> ${horse.temperament}</li>
-                    <li><span class="stat-label">Description:</span> ${horse.description}</li>
-                    <li><span class="stat-label">*Fun Fact:</span> ${horse.funFact}</li>
-                </ul>
+
+            <div class="favorite-btn ${favoritesList.includes(horse.name) ? "active" : ""}" 
+                 data-horse="${horse.name}">
+                ❤
             </div>
+        </div>
+
+        <div class="card-back" style="background:${horse.color}">
+          <ul class="horse-stats">
+    <li><span class="stat-label">Group:</span> ${horse.groupLabel}</li>
+    <li><span class="stat-label">Maximum Speed:</span> ${horse.speed}</li>
+    <li><span class="stat-label">Height:</span> ${horse.height}</li>
+    <li><span class="stat-label">Color:</span> ${horse.horseColor}</li>
+    <li><span class="stat-label">Temperament:</span> ${horse.temperament}</li>
+    <li><span class="stat-label">Description:</span> ${horse.description}</li>
+    <li><span class="stat-label">*Fun Fact:</span> ${horse.funFact}</li>
+</ul>
         </div>
     `;
 
+    // ✔️ זה מה שהיה חסר לך
+    inner.addEventListener("click", (e) => {
+        if (e.target.classList.contains("favorite-btn")) return;
+        inner.classList.toggle("flipped");
+    });
+
+    card.appendChild(inner);
+
     return card;
+}
+// ===============================
+// טעינת מועדפים מהשרת
+// ===============================
+function loadFavorites() {
+    fetch("TypesPage.aspx/GetFavorites", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "{}"
+    })
+        .then(r => r.json())
+        .then(data => {
+            favoritesList = data.d || [];
+            renderCards();
+            updateHero();
+        });
 }
 
 // ===============================
-// אתחול הקלפים
+// Toggle מועדף
 // ===============================
-function initHorseCards() {
-    const otherContainer = document.querySelector('.other-cards');
+document.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("favorite-btn")) return;
+
+    const horseName = e.target.dataset.horse;
+
+    fetch("TypesPage.aspx/ToggleFavorite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ horseName })
+    })
+        .then(r => r.json())
+        .then(data => {
+            const isFav = data.d;
+
+            e.target.classList.toggle("active", isFav);
+
+            if (isFav) {
+                if (!favoritesList.includes(horseName)) {
+                    favoritesList.push(horseName);
+                }
+            } else {
+                favoritesList = favoritesList.filter(h => h !== horseName);
+            }
+
+            renderCards();
+            updateHero();
+        });
+});
+
+// ===============================
+// רינדור קלפים
+// ===============================
+function renderCards() {
+    favoritesContainer.innerHTML = "";
+    otherContainer.innerHTML = "";
+
+    horseCards = [];
+
+    const favFragment = document.createDocumentFragment();
+    const otherFragment = document.createDocumentFragment();
 
     horsesData.forEach(horse => {
         const card = createHorseCard(horse);
-        otherContainer.appendChild(card);
+        horseCards.push(card);
+
+        if (favoritesList.includes(horse.name)) {
+            favFragment.appendChild(card);
+        } else {
+            otherFragment.appendChild(card);
+        }
     });
+
+    favoritesContainer.appendChild(favFragment);
+    otherContainer.appendChild(otherFragment);
 }
 
 // ===============================
-// משתנים גלובליים
+// חיפוש
 // ===============================
-const searchInput = document.getElementById('searchInput');
-let horseCards = [];
-let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-const favoritesContainer = document.querySelector('.favorite-cards');
-const otherContainer = document.querySelector('.other-cards');
+searchInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") e.preventDefault();
+});
 
-
-function createEmptyMessage(id, text, container) {
-    const messageEl = document.createElement('div');
-    messageEl.id = id;
-    messageEl.textContent = text;
-    messageEl.classList.add('empty-message');
-    container.appendChild(messageEl);
-    return messageEl;
-}
-
-const noResultsEl = createEmptyMessage('noResults', 'No Results',
-    document.querySelector('.horse-cards-container'));
-
-const emptyFavoritesEl = createEmptyMessage('emptyFavorites', 'No favorites yet',
-    favoritesContainer);
-
-function updateFavoritesMessage() {
-    const hasFavorites = favoritesContainer.querySelectorAll('.horse-card').length > 0;
-    emptyFavoritesEl.style.display = hasFavorites ? 'none' : 'block';
-}
-
-// ===============================
-// פונקציית חיפוש סוסים
-// ===============================
 function filterHorses() {
-    const filter = searchInput.value.toLowerCase().trim();
-    let anyVisible = false;
+    const filter = searchInput.value.toLowerCase();
+
+    let found = false;
 
     horseCards.forEach(card => {
-        const horseNameEl = card.querySelector('.horse-name');
-        const originalName = horseNameEl.dataset.original || horseNameEl.textContent;
-        horseNameEl.dataset.original = originalName;
+        const name = card.querySelector(".horse-name").textContent.toLowerCase();
+        const show = name.includes(filter);
 
-        const matchesName = originalName.toLowerCase().includes(filter);
-        card.style.display = matchesName ? 'flex' : 'none';
+        card.style.display = show ? "inline-block" : "none";
 
-        if (matchesName) anyVisible = true;
+        if (show) found = true;
     });
 
-    noResultsEl.style.display = anyVisible ? 'none' : 'block';
-}
-
-searchInput.addEventListener('input', filterHorses);
-
-// ===============================
-// פונקציית טיפול במועדפים
-// ===============================
-function renderCards() {
-    favoritesContainer.innerHTML = '';
-    otherContainer.innerHTML = '';
-
-    horseCards = Array.from(document.querySelectorAll('.horse-card-template'));
-
-    horsesData.forEach(horseData => {
-        const card = createHorseCard(horseData);
-        const favoriteBtn = card.querySelector('.favorite-btn');
-        const horseName = favoriteBtn.dataset.horse;
-
-        if (favorites.includes(horseName)) {
-            favoriteBtn.classList.add('active');
-            favoritesContainer.appendChild(card);
-        } else {
-            favoriteBtn.classList.remove('active');
-            otherContainer.appendChild(card);
-        }
-
-        favoriteBtn.onclick = e => {
-            e.stopPropagation();
-            if (favorites.includes(horseName)) {
-                favorites = favorites.filter(f => f !== horseName);
-            } else {
-                favorites.push(horseName);
-            }
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            renderCards();
-        };
-
-        const inner = card.querySelector('.card-inner');
-        card.addEventListener('click', e => {
-            if (e.target === favoriteBtn) return;
-            inner.classList.toggle('flipped');
-        });
-    });
-
-    horseCards = Array.from(document.querySelectorAll('.horse-card'));
-
-    startHeroRotation();
-    updateFavoritesMessage();
-    sortCards(favoritesContainer);
-    sortCards(otherContainer);
-    updateHero();
-}
-
-function sortCards(container) {
-    const cards = Array.from(container.querySelectorAll('.horse-card'));
-    cards.sort((a, b) => {
-        const nameA = a.querySelector('.horse-name').textContent.trim().toLowerCase();
-        const nameB = b.querySelector('.horse-name').textContent.trim().toLowerCase();
-        return nameA.localeCompare(nameB);
-    });
-    cards.forEach(card => container.appendChild(card));
-}
-
-// ===============================
-// פונקציית Hero
-// ===============================
-function updateHero() {
-    const heroContainer = document.querySelector('.hero-container');
-    const heroText = document.querySelector('.hero-text');
-    const heroImg = document.getElementById('hero-img');
-    const heroName = document.getElementById('hero-name');
-    const heroStats = document.getElementById('hero-stats');
-
-    if (favorites.length === 0) {
-        heroContainer.classList.add('hero-empty');
-        heroText.classList.add('heroText-empty');
-        heroName.classList.add('heroText-empty');
-        heroName.textContent = 'No favorites yet...';
-        heroStats.style.display = 'none';
-        heroImg.style.display = 'none';
-    } else {
-        const firstFavorite = favorites[0];
-        const card = Array.from(document.querySelectorAll('.horse-card'))
-            .find(c => c.querySelector('.favorite-btn').dataset.horse === firstFavorite);
-
-        if (!card) return;
-
-        updateHeroFromCard(card);
+    if (noResultsEl) {
+        noResultsEl.style.display = found ? "none" : "block";
     }
 }
 
-let currentHeroIndex = 0;
-let heroInterval = null;
-
-function startHeroRotation() {
-    if (favorites.length < 2) return;
-    stopHeroRotation();
-    heroInterval = setInterval(() => {
-        currentHeroIndex = (currentHeroIndex + 1) % favorites.length;
-        updateHeroByIndex(currentHeroIndex);
-    }, 15000);
-}
-
-function stopHeroRotation() {
-    if (heroInterval) {
-        clearInterval(heroInterval);
-        heroInterval = null;
-    }
-}
-
-function updateHeroByIndex(index) {
-    const horseName = favorites[index];
-    const card = [...document.querySelectorAll('.horse-card')]
-        .find(c => c.querySelector('.favorite-btn').dataset.horse === horseName);
-    if (!card) return;
-    updateHeroFromCard(card);
-}
-
-document.querySelector('.hero-arrow.left').onclick = () => {
-    stopHeroRotation();
-    currentHeroIndex = (currentHeroIndex - 1 + favorites.length) % favorites.length;
-    updateHeroByIndex(currentHeroIndex);
-};
-
-document.querySelector('.hero-arrow.right').onclick = () => {
-    stopHeroRotation();
-    currentHeroIndex = (currentHeroIndex + 1) % favorites.length;
-    updateHeroByIndex(currentHeroIndex);
-};
-
-function updateHeroFromCard(card) {
-    if (!card) return;
-
-    const heroContainer = document.querySelector('.hero-container');
-    const heroText = document.querySelector('.hero-text');
-    const heroImg = document.getElementById('hero-img');
-    const heroName = document.getElementById('hero-name');
-    const heroStats = document.getElementById('hero-stats');
-
-    const name = card.querySelector('.horse-name').textContent;
-    const statsList = card.querySelector('.horse-stats')?.innerHTML || '';
-    const imgEl = card.querySelector('img');
-    const placeholder = card.querySelector('.horse-placeholder');
-
-    heroContainer.classList.remove('hero-empty');
-    heroText.classList.remove('heroText-empty');
-    heroName.classList.remove('heroText-empty');
-
-    heroName.textContent = name;
-    heroStats.innerHTML = statsList;
-    heroStats.style.display = 'block';
-
-    if (imgEl) {
-        heroImg.src = imgEl.src;
-        heroImg.style.display = 'block';
-    } else if (placeholder) {
-        heroImg.src = '';
-        heroImg.style.display = 'none';
-    }
-
-    const cardBack = card.querySelector('.card-back');
-    let bgColor = 'saddlebrown';
-    let textColor = '#fff';
-
-    if (cardBack) {
-        bgColor = cardBack.dataset.bgColor || cardBack.style.backgroundColor || bgColor;
-
-        const rgb = window.getComputedStyle(cardBack).backgroundColor;
-        if (rgb) {
-            const match = rgb.match(/\d+/g);
-            if (match) {
-                const r = parseInt(match[0]), g = parseInt(match[1]), b = parseInt(match[2]);
-                const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-                textColor = brightness > 125 ? '#000' : '#fff';
-            }
-        }
-    }
-
-    heroText.style.backgroundColor = bgColor;
-    heroName.style.color = textColor;
-}
-
-function enableHeroClickNavigation() {
-    const heroContainer = document.querySelector('.hero-container');
-    const heroLeftArrow = document.querySelector('.hero-arrow.left');
-    const heroRightArrow = document.querySelector('.hero-arrow.right');
-
-    heroContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('favorite-btn') ||
-            e.target === heroLeftArrow ||
-            e.target === heroRightArrow) return;
-
-        if (favorites.length < 2) return;
-
-        stopHeroRotation();
-        currentHeroIndex = (currentHeroIndex + 1) % favorites.length;
-
-        const horseName = favorites[currentHeroIndex];
-        const card = [...document.querySelectorAll('.horse-card')]
-            .find(c => c.querySelector('.favorite-btn').dataset.horse === horseName);
-
-        updateHeroFromCard(card);
-    });
-}
+searchInput.addEventListener("input", filterHorses);
 
 // ===============================
-// אתחול
+// התחלה
 // ===============================
-renderCards();
-enableHeroClickNavigation();
+loadFavorites();
 
-/*
-CSS להוסיף לקובץ Types.css:
-
-.group-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 4px 10px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.9;
-}
-*/  

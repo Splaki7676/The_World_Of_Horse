@@ -36,19 +36,21 @@
 
                         <!-- למעלה הכותרת עם הכיתה שלה ולמטה התפריט עם כיתתו -->
                         <div class="menu-bar">
+                            <%if (Session["id"] != null)
+                                {
+                            %>
+                                <a id="typePage" runat="server" href="TypesPage.aspx">horse types page</a>
 
-                            <a id="typePage" runat="server" href="TypesPage.aspx">horse types page</a>
-
-                            <a href="~/RidingPage.aspx" runat="server">riding on horses</a>
-                            <a href="~/Guess_the_Sound.aspx" runat="server">quiz</a>
-                            <a href="~/Sounds.aspx" runat="server">sounds</a>
-                            <a href="~/knoleg_master(nested)/BondingWithHorse.aspx" runat="server">horse_knoleg</a>
-                            
+                                <a href="~/Guess_the_Sound.aspx" runat="server">quiz</a>
+                                <a href="~/Sounds.aspx" runat="server">sounds</a>
+                                <a href="~/knoleg_master(nested)/BondingWithHorse.aspx" runat="server">horse_knoleg</a>
+                            <%} %>
 
 
                             <div class="login-menu">
                                 <%if (Session["id"] == null)
-                                    {                                   %>
+                                    {
+                                %>
                                 <img runat="server" src="~/Pics/user%20icon%20green.png" class="login-icon" width="40" />
                                 <%}
                                     else if (Session["ProfilePic"] != null)
@@ -97,8 +99,11 @@
                                     </div>
 
                                     <a runat="server" href="~/myAccount.aspx">My Profile</a>
-                                    <a runat="server" href="~/Admin_Master_Nested/AdminDashboard.aspx">admin(try)</a>
-                                    <a runat="server" href="~/Admin_Master_Nested/AdminUsers.aspx">admin(try222)</a>
+                                    <%if (IsAdminUser)
+                                        {  %>
+                                    <a runat="server" href="~/Admin_Master_Nested/AdminDashboard.aspx">Admin Page</a>
+                                    <%} %>
+
                                     <a runat="server" href="~/Calculator.aspx">Calculator</a>
                                     <a runat="server" href="~/EditProfile.aspx">Edit Profile</a>
 
