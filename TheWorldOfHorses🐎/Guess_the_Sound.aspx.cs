@@ -62,9 +62,28 @@ namespace TheWorldOfHorses__
         protected void btnAnswer_Click(object sender, EventArgs e)
         {
             var questions = (List<string[]>)Session["Questions"];
+
+            if (questions == null)
+            {
+                Response.Redirect("GameResults.aspx");
+                return;
+            }
+
             int currentQ = (int)Session["CurrentQ"];
-            int score = (int)Session["Score"];
-            var gameLog = (List<string[]>)Session["GameLog"];
+
+            if (currentQ >= questions.Count)
+            {
+                Response.Redirect("GameResults.aspx");
+                return;
+            }
+
+
+            var scoreObj = Session["Score"];
+            int score = scoreObj != null ? (int)scoreObj : 0;
+
+            var gameLog = Session["GameLog"] as List<string[]>;
+            if (gameLog == null)
+                gameLog = new List<string[]>();
 
             var correct = questions[currentQ];
             var clicked = (Button)sender;
@@ -83,10 +102,15 @@ namespace TheWorldOfHorses__
             Session["CurrentQ"] = currentQ + 1;
             Session["GameLog"] = gameLog;
 
-            if (currentQ + 1 >= 5)
+            if (currentQ + 1 >= questions.Count)
             {
-                SaveScore(score, 5);
+                Session["Score"] = score;
+                Session["GameName"] = "Quiz";
+
+                SaveScore(score, questions.Count);
+
                 Response.Redirect("GameResults.aspx");
+                return;
             }
             else
             {
@@ -100,6 +124,14 @@ namespace TheWorldOfHorses__
         {
             var questions = (List<string[]>)Session["Questions"];
             int currentQ = (int)Session["CurrentQ"];
+
+            if (questions == null || currentQ >= questions.Count)
+            {
+                Response.Redirect("GameResults.aspx");
+                return;
+            }
+
+
             int score = (int)Session["Score"];
             var correct = questions[currentQ];
 

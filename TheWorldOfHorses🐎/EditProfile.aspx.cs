@@ -123,7 +123,7 @@ namespace TheWorldOfHorses__
                     Session["mail"] = newEmail;
 
                 }
-                if (!string.IsNullOrEmpty(newPass) )
+                if (!string.IsNullOrEmpty(newPass))
                     updateCmd.Parameters.AddWithValue("@password", newPass);
 
                 if (!string.IsNullOrEmpty(imageBase64))
@@ -140,10 +140,10 @@ namespace TheWorldOfHorses__
 
                 updateCmd.ExecuteNonQuery();
 
-                
 
 
-                
+
+
                 Session.Remove("verified");
 
                 Session["successMsg"] = "Profile updated successfully!";
@@ -188,7 +188,7 @@ namespace TheWorldOfHorses__
                 // סיסמא נכונה — פותח את השדות
                 currentPassDiv.InnerText = "";
                 editFields.Style["display"] = "block";
-                
+
                 Session["verified"] = true;
             }
         }

@@ -39,11 +39,10 @@
                             <%if (Session["id"] != null)
                                 {
                             %>
-                                <a id="typePage" runat="server" href="TypesPage.aspx">horse types page</a>
-
-                                <a href="~/Guess_the_Sound.aspx" runat="server">quiz</a>
-                                <a href="~/Sounds.aspx" runat="server">sounds</a>
-                                <a href="~/knoleg_master(nested)/BondingWithHorse.aspx" runat="server">horse_knoleg</a>
+                            <a id="typePage" runat="server" href="TypesPage.aspx">horse types page</a>
+                            <a href="~/Guess_the_Sound.aspx" runat="server">Guess the Sound</a>
+                            <a href="~/Sounds.aspx" runat="server">sounds</a>
+                            <a href="~/knoleg_master(nested)/BondingWithHorse.aspx" runat="server">horse_knoleg</a>
                             <%} %>
 
 
