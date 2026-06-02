@@ -53,7 +53,7 @@ namespace TheWorldOfHorses__
             Application.UnLock();
 
             ResetInfo();
-            Response.Redirect("HomePage.aspx");
+            Response.Redirect("~/HomePage.aspx");
 
 
         }

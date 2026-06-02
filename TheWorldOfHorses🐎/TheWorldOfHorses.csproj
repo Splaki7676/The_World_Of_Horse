@@ -78,6 +78,8 @@
     <Content Include="Calculator.aspx" />
     <Content Include="CSS\Calculator.css" />
     <Content Include="CSS\NutritionMaster.css" />
+    <Content Include="GameResults.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Guess_the_Sound.aspx" />
     <Content Include="js\Calculator.js" />
     <Content Include="CSS\Home.css" />
@@ -175,11 +177,9 @@
     <Content Include="Pics\WesternRidingPic.png" />
     <Content Include="js\Register.js" />
     <Content Include="CSS\Register.css" />
-    <Content Include="quis.aspx" />
     <Content Include="RegisterPage.aspx" />
     <Content Include="ResetPassword.aspx" />
     <Content Include="js\ResetPassword.js" />
-    <Content Include="RidingPage.aspx" />
     <Content Include="CSS\Master.css" />
     <Content Include="js\Types.js" />
     <Content Include="TypesPage.aspx" />
@@ -243,6 +243,16 @@
     </Compile>
     <Compile Include="ForgotPassword.aspx.designer.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GameResults.aspx.cs">
+      <DependentUpon>GameResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GameResults.aspx.designer.cs">
+      <DependentUpon>GameResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Guess_the_Sound.aspx.cs">
       <DependentUpon>Guess_the_Sound.aspx</DependentUpon>
@@ -364,13 +374,6 @@
       <DependentUpon>myAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="quis.aspx.cs">
-      <DependentUpon>quis.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="quis.aspx.designer.cs">
-      <DependentUpon>quis.aspx</DependentUpon>
-    </Compile>
     <Compile Include="RegisterPage.aspx.cs">
       <DependentUpon>RegisterPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -384,13 +387,6 @@
     </Compile>
     <Compile Include="ResetPassword.aspx.designer.cs">
       <DependentUpon>ResetPassword.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="RidingPage.aspx.cs">
-      <DependentUpon>RidingPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RidingPage.aspx.designer.cs">
-      <DependentUpon>RidingPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ShowPic.ashx.cs">
       <DependentUpon>ShowPic.ashx</DependentUpon>

@@ -14,6 +14,28 @@
 
 </head>
 
+<script>
+    document.addEventListener("keydown", function (e) {
+
+        if (e.key !== "Enter")
+            return;
+
+        // עמודים שבהם Enter כן יעבוד
+        const allowedPages = [
+            "LoginPage.aspx",
+            "RegisterPage.aspx",
+            "ForgotPassword.aspx",
+            "ResetPassword.aspx"
+        ];
+
+        const currentPage = window.location.pathname.split("/").pop();
+
+        if (allowedPages.includes(currentPage))
+            return;
+
+        e.preventDefault();
+    });
+</script>
 
 
 <body class="<%= BodyCssClass %>">
@@ -54,7 +76,7 @@
                                 <%}
                                     else if (Session["ProfilePic"] != null)
                                     { %>
-                                <img src="ShowPic.ashx" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+                                <img src='<%= ResolveUrl("~/ShowPic.ashx") %>' style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
                                 <%}
                                     else
                                     { %>
@@ -83,7 +105,7 @@
                                         <div class="user-pic">
                                             <% if (Session["ProfilePic"] != null)
                                                 { %>
-                                            <img src="ShowPic.ashx" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+                                            <img src='<%= ResolveUrl("~/ShowPic.ashx") %>'  style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
                                             <% }
                                                 else
                                                 { %>
