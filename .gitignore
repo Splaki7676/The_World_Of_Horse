@@ -70,3 +70,5 @@ IISExpress/**
 
 *.mdf
 *.ldf
+# Ignore local configuration files
+Web.config
