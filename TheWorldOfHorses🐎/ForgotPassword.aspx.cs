@@ -74,10 +74,13 @@ namespace TheWorldOfHorses__
             mail.Subject = "Password Reset - The World Of Horses";
             mail.Body = $"Hi {username},\n\nClick the link below to reset your password:\n{resetLink}\n\nThe link expires in 1 hour.";
 
+           
             System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
+            
             // Use credentials from web.config for security
             string smtpEmail = ConfigurationManager.AppSettings["SmtpEmail"];
             string smtpPassword = ConfigurationManager.AppSettings["SmtpPassword"];
+            
             smtp.Credentials = new System.Net.NetworkCredential(smtpEmail, smtpPassword);
             
             smtp.EnableSsl = true;

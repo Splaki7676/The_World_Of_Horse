@@ -105,7 +105,7 @@ namespace TheWorldOfHorses__
             if (currentQ + 1 >= questions.Count)
             {
                 Session["Score"] = score;
-                Session["GameName"] = "Quiz";
+                Session["GameName"] = "GuessSound";
 
                 SaveScore(score, questions.Count);
 
