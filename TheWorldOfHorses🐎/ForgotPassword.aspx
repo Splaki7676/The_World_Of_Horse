@@ -20,7 +20,10 @@
             <div class="right">
                 <div class="login-wrapper">
 
-                    <h2 class="login-title">Reset Password</h2>
+                    <h2 class="login-title">
+                        Forgot Password?
+                        <small style="color:gray;font-size:18px;">Reset here</small>
+                    </h2>
 
                     <div class="input-group">
                         <label for="emailInput">Email</label>
@@ -58,13 +61,27 @@
                     return false;
                 }
 
-                const atIndex = email.indexOf("@");
-                const dotIndex = email.lastIndexOf(".");
-                if (atIndex < 1 || dotIndex <= atIndex + 1 || dotIndex === email.length - 1) {
+                if (!isValidEmail(email)) {
                     emailDiv.style.color = "red";
-                    emailDiv.innerHTML = "Invalid email address.";
-                    return false;
+                    emailDiv.innerHTML = "This email address is invalid";
+                    return;
                 }
+                
+                return true;
+            }
+
+
+            function isValidEmail(mail) {
+                const atIndex = mail.indexOf("@");
+                const lastAtIndex = mail.lastIndexOf("@");
+                const dotIndex = mail.lastIndexOf(".");
+                const domainLength = mail.length - dotIndex - 1;
+
+                if (mail.length === 0) return false;
+                if (atIndex < 1 || atIndex !== lastAtIndex) return false;
+                if (dotIndex === -1 || dotIndex <= atIndex + 1) return false;
+                if (dotIndex === mail.length - 1) return false;
+                if (domainLength < 2) return false;
 
                 return true;
             }

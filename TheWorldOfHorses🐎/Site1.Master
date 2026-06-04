@@ -50,7 +50,7 @@
 
                         <div class="title">
 
-                            <a href="HomePage.aspx">
+                            <a href="~/HomePage.aspx" runat="server">
                                 <h1>The World Of Horse  </h1>
                             </a>
 

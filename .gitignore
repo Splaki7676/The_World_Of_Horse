@@ -72,3 +72,4 @@ IISExpress/**
 *.ldf
 # Ignore local configuration files
 Web.config
+/TheWorldOfHorses🐎/App_Data/Database1_log.ldf

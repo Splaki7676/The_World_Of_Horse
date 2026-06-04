@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
 
 namespace TheWorldOfHorses__
 {
@@ -74,7 +75,11 @@ namespace TheWorldOfHorses__
             mail.Body = $"Hi {username},\n\nClick the link below to reset your password:\n{resetLink}\n\nThe link expires in 1 hour.";
 
             System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new System.Net.NetworkCredential("aradlopmm2020@gmail.com", "aukp hkak qfwn deqa");
+            // Use credentials from web.config for security
+            string smtpEmail = ConfigurationManager.AppSettings["SmtpEmail"];
+            string smtpPassword = ConfigurationManager.AppSettings["SmtpPassword"];
+            smtp.Credentials = new System.Net.NetworkCredential(smtpEmail, smtpPassword);
+            
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }

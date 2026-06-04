@@ -127,7 +127,7 @@ function checkSave() {
 let cropper = null;
 
 function openCropper(input) {
-    if (!input.files || !input.files[0]) return;
+    if (!input.files || !input.files[0]) return; //if no file selected, do nothing
     const reader = new FileReader();
     reader.onload = function (e) {
         const cropImage = document.getElementById("cropImage");
