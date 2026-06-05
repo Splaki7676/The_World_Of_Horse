@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace TheWorldOfHorses__
 {
     public partial class LoginPage : System.Web.UI.Page
     {
+        string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
         string Username, password;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,7 +29,7 @@ namespace TheWorldOfHorses__
                 Username = Request.Form["Username"].ToString();
                 password = Request.Form["password"].ToString();
 
-                using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True"))
+                using (SqlConnection con = new SqlConnection(connStr))
                 {
                     con.Open();
 

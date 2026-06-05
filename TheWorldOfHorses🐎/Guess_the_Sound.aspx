@@ -94,28 +94,7 @@
             margin: 10px 0 28px;
         }
 
-        .btn-play {
-            background: linear-gradient(135deg, #4a90d9, #2c6fba);
-            color: white;
-            border: none;
-            padding: 18px 50px;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 18px rgba(44,111,186,0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
-            letter-spacing: 1px;
-        }
-
-            .btn-play:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 22px rgba(44,111,186,0.5);
-            }
-
-            .btn-play:active {
-                transform: scale(0.97);
-            }
+        
 
         /* כפתורי תשובות */
         .choices {
@@ -163,8 +142,8 @@
         }
 
         .play-btn {
-            width: 46px;
-            height: 46px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background: saddlebrown;
             color: white;
@@ -216,6 +195,7 @@
 
         <!-- מסך משחק -->
         <div id="gameScreen" runat="server" visible="false">
+            <span><strong>*</strong>stop and start will start the sound frome the beginning</span>
             <div class="progress-top">
                 <asp:Label ID="lblRound" runat="server" Text="Round 1 / 5" />
                 <asp:Label ID="lblScore" runat="server" Text="Score: 0" />
@@ -231,6 +211,7 @@
                     <div class="player-info">
                         <div class="progress-bar">
                             <div class="progress-fill" id="progressFill"></div>
+
                         </div>
                     </div>
                 </div>
@@ -251,13 +232,13 @@
             var src = document.getElementById('<%= hfAudioSrc.ClientID %>').value;
             var type = document.getElementById('<%= hfAudioType.ClientID %>').value;
             var audio = document.getElementById('gameAudio');
-            var btn = document.querySelector('.btn-play');
+            var btn = document.getElementById('playBtn');
 
             // אם כבר מנגן — עצור
             if (!audio.paused) {
                 audio.pause();
                 audio.currentTime = 0;
-                btn.textContent = '▶ Play Sound';
+                btn.textContent = '▶';
                 return;
             }
 
@@ -274,7 +255,7 @@
 
             // כשנגמר — חזור לכפתור Play
             audio.onended = function () {
-                btn.textContent = '▶ Play Sound';
+                btn.textContent = '▶';
             };
         }
     </script>

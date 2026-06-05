@@ -11,6 +11,8 @@ namespace TheWorldOfHorses__
 {
     public partial class ForgotPassword : System.Web.UI.Page
     {
+        string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             ((Site1)Master).BodyCssClass = "login-page";
@@ -26,7 +28,7 @@ namespace TheWorldOfHorses__
                     return;
                 }
 
-                using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True"))
+                using (SqlConnection con = new SqlConnection(connStr))
                 {
                     con.Open();
 

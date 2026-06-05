@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -9,8 +10,7 @@ namespace TheWorldOfHorses__
 {
     public partial class Guess_the_Sound : System.Web.UI.Page
     {
-        string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True";
-
+        string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
         static List<string[]> allSounds = new List<string[]>
         {
             new string[] { "neigh",                "Neigh",         "נהירה",      "wav" },

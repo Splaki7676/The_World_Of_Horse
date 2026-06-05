@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -80,10 +81,8 @@ namespace TheWorldOfHorses__
 
         private bool CheckIfUserIsAdmin(int userId)
         {
-            string connectionString =
-                @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True";
-
-            using (SqlConnection con = new SqlConnection(connectionString))
+            string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connStr))
             {
                 con.Open();
 

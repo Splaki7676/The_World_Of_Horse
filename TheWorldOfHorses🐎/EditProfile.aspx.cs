@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace TheWorldOfHorses__
 {
     public partial class EditProfile : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString; protected void Page_Load(object sender, EventArgs e)
         {
             ((Site1)Master).BodyCssClass = "edit-page"; //משנה שם קלאס לבאדי בדף עדכון נתונים 
 
@@ -39,7 +40,7 @@ namespace TheWorldOfHorses__
             emailDiv.InnerText = "";
             newPassDiv.InnerText = "";
 
-            using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection(connStr))
             {
                 con.Open();
 
@@ -167,7 +168,7 @@ namespace TheWorldOfHorses__
                 return;
             }
 
-            using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection(connStr))
             {
                 con.Open();
 

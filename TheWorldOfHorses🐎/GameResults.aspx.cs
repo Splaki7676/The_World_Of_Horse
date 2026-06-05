@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -11,8 +12,7 @@ namespace TheWorldOfHorses__
 {
     public partial class GameResults : System.Web.UI.Page
     {
-        string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\aradl\\source\\repos\\TheWorldOfHorses🐎\\TheWorldOfHorses🐎\\App_Data\\Database1.mdf;Integrated Security=True";
-        protected void Page_Load(object sender, EventArgs e)
+        string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString; protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["Score"] != null)
             {
@@ -31,7 +31,7 @@ namespace TheWorldOfHorses__
 
                 string maxQ_qury = "select MaxScore from GameScores where GameName=@GameName";
                 int maxScore = 0;
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection con = new SqlConnection(connStr))
                 {
                     con.Open();
                     SqlCommand cmd = new SqlCommand(maxQ_qury, con);

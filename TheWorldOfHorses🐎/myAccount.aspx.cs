@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace TheWorldOfHorses__
 {
     public partial class myAccount : System.Web.UI.Page
     {
+        string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             ((Site1)Master).BodyCssClass = "account-page";
@@ -31,7 +33,7 @@ namespace TheWorldOfHorses__
         {
             if (Session["id"] != null)
             {
-                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True");
+                SqlConnection con = new SqlConnection(connStr);
                 con.Open();
                 string s = "delete from Users where id=" + int.Parse(Session["id"].ToString()) + "";
                 SqlCommand cmd = new SqlCommand(s, con);

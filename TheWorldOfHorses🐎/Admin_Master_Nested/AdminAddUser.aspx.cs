@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -11,7 +12,7 @@ namespace TheWorldOfHorses__.Admin_Master_Nested
 {
     public partial class AdminAddUser : System.Web.UI.Page
     {
-        string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True";
+        string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {

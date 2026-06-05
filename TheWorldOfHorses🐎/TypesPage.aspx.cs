@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
 
 using System.Data.SqlClient;
 using System.Web.Services;
@@ -34,7 +35,7 @@ namespace TheWorldOfHorses__
             }
 
             int userId = Convert.ToInt32(HttpContext.Current.Session["id"]);
-            string conStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True";
+            string conStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(conStr))
             {

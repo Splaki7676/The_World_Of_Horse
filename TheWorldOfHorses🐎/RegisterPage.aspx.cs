@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -13,6 +14,7 @@ namespace TheWorldOfHorses__
 {
     public partial class RegisterPage : System.Web.UI.Page
     {
+        string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
         string Username, password, password2, mail, gender, date, terms, newLover, oldLover, favoriteBreed;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -39,7 +41,7 @@ namespace TheWorldOfHorses__
             //errorMessage = "";
 
             // בדיקה במסד הנתונים אם כבר קיים
-            using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection(connStr))
             {
                 con.Open();
                 string query = $"SELECT COUNT(*) FROM Users WHERE {fieldName}=@Value";
@@ -125,7 +127,7 @@ namespace TheWorldOfHorses__
 
 
 
-            using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection(connStr))
             {
                 //con.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True";
                 con.Open();
