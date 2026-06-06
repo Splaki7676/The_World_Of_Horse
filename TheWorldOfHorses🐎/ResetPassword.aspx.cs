@@ -16,7 +16,7 @@ namespace TheWorldOfHorses__
         {
             ((Site1)Master).BodyCssClass = "login-page";
 
-
+            // קבלת הטוקן מהקישור
             string token = Request.QueryString["token"];
 
 

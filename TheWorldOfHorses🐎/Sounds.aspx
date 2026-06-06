@@ -70,9 +70,11 @@
             source.src = 'Sounds/' + s.name + '.' + s.ext;
             source.type = type;
             audio.load();
-            audio.volume = s.name === 'horse_teeth' ? 0.05 : 1.0;  // ← הוסף כאן
+            // צעד 1: הגדרת ווליום התחלתי ברגע הלחיצה (חלש מאוד רק עבור אכילת גזר, מלא עבור השאר)
+            audio.volume = s.name === 'horse_teeth' ? 0.05 : 1.0;     
             audio.play();
 
+            // צעד 2: עבור אכילת גזר, הגדרת טיימר (שעון מעורר) שיגביר את הווליום אוטומטית לעוצמה מלאה לאחר 2 שניות
             if (s.name === 'horse_teeth') {
                 setTimeout(function () {
                     audio.volume = 1.0;

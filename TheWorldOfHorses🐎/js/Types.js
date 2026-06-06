@@ -499,7 +499,6 @@ function createHorseCard(horse) {
         </div>
     `;
 
-    // ✔️ זה מה שהיה חסר לך
     inner.addEventListener("click", (e) => {
         if (e.target.classList.contains("favorite-btn")) return;
         inner.classList.toggle("flipped");
