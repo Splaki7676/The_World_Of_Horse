@@ -11,6 +11,7 @@ namespace TheWorldOfHorses__
     public partial class Guess_the_Sound : System.Web.UI.Page
     {
         string connStr = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString;
+        // list of all sounds in the game: each array contains [0] - file name (without extension), [1] - English name, [2] - Hebrew name, [3] - file extension
         static List<string[]> allSounds = new List<string[]>
         {
             new string[] { "neigh",                "Neigh",         "נהירה",      "wav" },
@@ -26,6 +27,9 @@ namespace TheWorldOfHorses__
             new string[] { "horse_teeth",          "Eating carrot", "אכילת גזר",  "m4a" },
             new string[] { "walk2_fotstepsts",     "Hooves",        "פרסות",      "wav" }
         };
+
+        //input:list of string arrays;
+        //returns: new list with the same elements but in random order
         private List<string[]> Shuffle(List<string[]> list)
         {
             var rnd = new Random();
@@ -44,14 +48,16 @@ namespace TheWorldOfHorses__
             ((Site1)Master).BodyCssClass = "guess-sound-page";
         }
 
+
+        //starts a new game;
         protected void btnStart_Click(object sender, EventArgs e)
         {
             var shuffled = Shuffle(allSounds);
 
-            Session["Questions"] = shuffled.GetRange(0, 5);
-            Session["CurrentQ"] = 0;
-            Session["Score"] = 0;
-            Session["GameLog"] = new List<string[]>();
+            Session["Questions"] = shuffled.GetRange(0, 5);// 5 שאלות אקראיות מתוך הרשימה
+            Session["CurrentQ"] = 0;// אינדקס של השאלה הנוכחית
+            Session["Score"] = 0;// ניקוד נוכחי
+            Session["GameLog"] = new List<string[]>();// רישום של השאלות והתשובות שנבחרו
 
             startScreen.Visible = false;
             gameScreen.Visible = true;
@@ -59,6 +65,8 @@ namespace TheWorldOfHorses__
             LoadQuestion();
         }
 
+        //every time the user clicks an answer button-->
+        //updates the score and game log based on the user's answer;
         protected void btnAnswer_Click(object sender, EventArgs e)
         {
             var questions = (List<string[]>)Session["Questions"];
@@ -85,19 +93,24 @@ namespace TheWorldOfHorses__
             if (gameLog == null)
                 gameLog = new List<string[]>();
 
-            var correct = questions[currentQ];
+            var correct = questions[currentQ];//שולף את המערך של התשובה הנכונה
+
+            // sender — הכפתור שנלחץ; CommandArgument מכיל את הבחירה של המשתמש
             var clicked = (Button)sender;
-            string selected = clicked.CommandArgument;
+            
+            string selected = clicked.CommandArgument;//הבחירה של המשתמש (שמו המקורי של הצליל שנמצא בתיקייה)
 
             bool isRight = selected == correct[0];
             if (isRight) score++;
 
+            //הוספה למילון את הבחירה של המשתמש
             gameLog.Add(new string[] {
-                correct[1],
-                clicked.Text,
-                isRight ? "1" : "0"
+                correct[1],//השם באנגלית של הצליל הנכון
+                clicked.Text,//הטקסט של הכפתור שנלחץ (שם באנגלית ועברית של הבחירה)
+                isRight ? "1" : "0"//סימון אם התשובה נכונה או לא
             });
 
+            //update session variables for next round or results
             Session["Score"] = score;
             Session["CurrentQ"] = currentQ + 1;
             Session["GameLog"] = gameLog;
@@ -116,13 +129,14 @@ namespace TheWorldOfHorses__
             {
                 startScreen.Visible = false;
                 gameScreen.Visible = true;
-                LoadQuestion();
+                LoadQuestion();//טוען את השאלה הבאה
             }
         }
 
+    //load the next question based on the current index in session
         private void LoadQuestion()
         {
-            var questions = (List<string[]>)Session["Questions"];
+            var questions = (List<string[]>)Session["Questions"];//cast the session object of the 5 random questions
             int currentQ = (int)Session["CurrentQ"];
 
             if (questions == null || currentQ >= questions.Count)
@@ -133,18 +147,17 @@ namespace TheWorldOfHorses__
 
 
             int score = (int)Session["Score"];
-            var correct = questions[currentQ];
+            var correct = questions[currentQ];//מכיל כעת את המערך של הצליל הנכון לסיבוב הזה
 
             lblRound.Text = "Round " + (currentQ + 1) + " / 5";
             lblScore.Text = "Score: " + score;
 
-            // במקום gameAudio.Attributes["src"] = ...
-            hfAudioSrc.Value = "Sounds/" + correct[0] + "." + correct[3];
-            hfAudioType.Value = correct[3] == "m4a" ? "audio/mp4" : "audio/wav";
+            hfAudioSrc.Value = "Sounds/" + correct[0] + "." + correct[3];//הגדרת מקור הצליל הנוכחי
+            hfAudioType.Value = correct[3] == "m4a" ? "audio/mp4" : "audio/wav";//הגדרת סוג הצליל הנוכחי--> עוזר לדפדן איך לנגן את האודיו 
 
             // 3 תשובות שגויות
             var others = new List<string[]>(allSounds);
-            others.RemoveAll(s => s[0] == correct[0]);
+            others.RemoveAll(s => s[0] == correct[0]);//הסרת הצליל הנכון מהרשימה כדי לקבל רק תשובות שגויות
             others = Shuffle(others);
 
             // 4 אפשרויות מעורבבות
@@ -154,10 +167,13 @@ namespace TheWorldOfHorses__
             Button[] btns = { btnA, btnB, btnC, btnD };
             for (int i = 0; i < 4; i++)
             {
-                btns[i].Text = options[i][1] + " — " + options[i][2];
-                btns[i].CommandArgument = options[i][0];
+                btns[i].Text = options[i][1] + " — " + options[i][2];//הגדרת הטקסט של כל כפתור לתצוגה של השם באנגלית והעברית של הצליל
+                btns[i].CommandArgument = options[i][0]; // ארגומנט של הכפתור — הערך שישלח כשנלחץ הכפתור (שמו המקורי שמופיע בתיקייה של הצלילים)  ש 
             }
         }
+
+        //input: score achieved in the game, maximum possible score;
+        //updates the database with the user's score for this game, if the user is logged in
         private void SaveScore(int score, int maxScore)
         {
             if (Session["id"] == null) return;
@@ -175,6 +191,7 @@ namespace TheWorldOfHorses__
 
                 object existing = cmdCheck.ExecuteScalar();
 
+                //if it is the first try; insert new record
                 if (existing == null)
                 {
                     SqlCommand cmdInsert = new SqlCommand(
@@ -187,6 +204,7 @@ namespace TheWorldOfHorses__
                     cmdInsert.Parameters.AddWithValue("@Date", DateTime.Now);
                     cmdInsert.ExecuteNonQuery();
                 }
+                //if the score is better than the existing best score
                 else if (score > Convert.ToInt32(existing))
                 {
                     SqlCommand cmdUpdate = new SqlCommand(
@@ -198,6 +216,7 @@ namespace TheWorldOfHorses__
                     cmdUpdate.Parameters.AddWithValue("@GameName", "GuessSound");
                     cmdUpdate.ExecuteNonQuery();
                 }
+                //if the score is not better, just update attempts count
                 else
                 {
                     SqlCommand cmdAttempt = new SqlCommand(
