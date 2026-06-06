@@ -26,8 +26,8 @@ namespace TheWorldOfHorses__
             {
 
 
-                Username = Request.Form["Username"].ToString();
-                password = Request.Form["password"].ToString();
+                Username = Request.Form["Username"].ToString().Trim();
+                password = Request.Form["password"].ToString().Trim();
 
                 using (SqlConnection con = new SqlConnection(connStr))
                 {
@@ -87,6 +87,7 @@ namespace TheWorldOfHorses__
             }
 
         }
+        //show error message in div and style it
         public void SetError(HtmlGenericControl div,string msg)
         {
             div.Style["font-size"] = "14px";
@@ -99,6 +100,7 @@ namespace TheWorldOfHorses__
             }
 
         }
+        //clear error message from div
         public void ClearError(HtmlGenericControl div)
         {
             div.InnerText = "";

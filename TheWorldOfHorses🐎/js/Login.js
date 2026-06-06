@@ -29,6 +29,8 @@ function checkUsername() {
         setError(UsernameDiv, "Username must be at most 9 characters long.");
         return;
     }
+    //.test() returns true if there is a match, false otherwise;
+    //it checks it on the username string;
     if (!/[A-Za-z]/.test(Username)) {
         setError(UsernameDiv, "Username must contain at least one letter.");
         return;
@@ -46,6 +48,9 @@ function checkUsername() {
 function checkPassword() {
     const password = document.getElementById("password").value.trim();
     const PasswordDiv = document.getElementById("PasswordDiv");
+    //g = global flag
+    //[a-zA-Z]/g matches all letters in the password and returns them as an array;
+    //match() returns the array of matches or null if there are no matches;
     const letterCount = (password.match(/[a-zA-Z]/g) || []).length;
 
     passwordFlag = false;
@@ -63,6 +68,8 @@ function checkPassword() {
         setError(PasswordDiv, "Password must be at most 9 characters long.");
         return;
     }
+    //.test() returns true if there is a match, false otherwise;
+    //  it checks it on the password string;
     if (!/[0-9]/.test(password)) {
         setError(PasswordDiv, "Password must contain at least one number.");
         return;
@@ -78,9 +85,7 @@ function checkLogin() {
     checkPassword();
     checkUsername();
 
-    if (UsernameFlag && passwordFlag)
-        return true;
-    return false;
+    return UsernameFlag && passwordFlag;
 }
 
 

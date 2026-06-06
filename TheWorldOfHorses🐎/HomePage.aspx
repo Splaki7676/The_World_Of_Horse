@@ -16,7 +16,7 @@
     </div>
 
 
-    <!-- -->
+    <%//Section = a grouped area of related content %>
     <section class="home-section">
         <h2>About This Website</h2>
         <p>
@@ -35,19 +35,6 @@
     </section>
 
 
-
-    <!--    <br />
-    <label>home page</label>
-
-    <p>
-        Welcome to my website.
-    <br />
-        My name is arad and i have loved horse since the first time i met one.
-    <br />
-         On my website, you will gain knowledge about horses.
-    </p>
-   
-    -->
 
 
 </asp:Content>
