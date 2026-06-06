@@ -156,6 +156,8 @@ body:not(.edit-page) input {
     border-bottom: 2px solid saddlebrown; /* קו הפרדה */
     padding: 10px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
     .user-info span {

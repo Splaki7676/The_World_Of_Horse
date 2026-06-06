@@ -466,6 +466,12 @@ function updateInnerProgress(currentStep) { // עדכון פנימי
 
 
 
+/**
+ * When the page loads, determines whether this is a fresh visit or a server-driven state.
+ *
+ * If no server flag (__startStep) exists, the page starts from step 1.
+ * Otherwise, it continues from the step defined by the server (C# postback).
+ */
 
 // ------------------ אתחול ברגע טעינת הדף ------------------
 document.addEventListener("DOMContentLoaded", () => {

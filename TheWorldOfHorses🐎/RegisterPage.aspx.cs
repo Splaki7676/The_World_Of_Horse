@@ -23,6 +23,26 @@ namespace TheWorldOfHorses__
 
             if (IsPostBack && Session["Username"] != null)
             {
+
+                //this.GetType() – מזהה את סוג העמוד הנוכחי (RegisterPage).
+                //"RestoreFields" – זהו המפתח  הייחודי של הסקריפט. הוא נועד למנוע מצב שבו אותו סקריפט יוזרק פעמיים בטעות לאותו דף.
+
+                /// <summary>
+                /// Sends JavaScript to the browser to update form fields using Session values.
+                /// </summary>
+                /// <remarks>
+                /// RegisterStartupScript means:
+                /// - Register = add a script to the page
+                /// - Startup = run when the page finishes loading
+                /// - Script = JavaScript code
+                ///
+                /// In other words: it injects JavaScript that runs after the page is loaded in the browser.
+                /// </remarks>
+                /// <param name="__startStep">
+                ///Sends a JavaScript flag to indicate the user came from a server action.
+                ///This keeps the form on the correct step instead of resetting.
+                /// </param>
+
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "RestoreFields",
                     $"document.getElementById('Username').value = '{Session["Username"]}'; " +
                     $"document.getElementById('password').value = '{Session["password"]}'; " +
@@ -36,9 +56,10 @@ namespace TheWorldOfHorses__
 
         }
 
+        //input: field name in the database, value to check
+        //output: true if the value is unique (not exists in the database), false if it already exists
         protected bool CheckFieldServer(string fieldName, string fieldValue)
         {
-            //errorMessage = "";
 
             // בדיקה במסד הנתונים אם כבר קיים
             using (SqlConnection con = new SqlConnection(connStr))
@@ -51,13 +72,17 @@ namespace TheWorldOfHorses__
                 int count = (int)cmd.ExecuteScalar();
                 if (count > 0)
                 {
-                    //errorMessage = $"{fieldName} already exists!";
                     return false;
                 }
             }
 
             return true;
         }
+        /// <summary>
+        /// checks if all fields are valid, and can move to step 2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnNextStep1_Click(object sender, EventArgs e)
         {
 
@@ -74,7 +99,6 @@ namespace TheWorldOfHorses__
             if (!CheckFieldServer("Username", Username))
             {
                 UsernameDiv.InnerText = error;
-
 
                 // כשיש שגיאה — מחזיר ערכים לשדות ✅
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "StayStep1",
@@ -99,6 +123,50 @@ namespace TheWorldOfHorses__
    $"document.getElementById('password').value = '{Session["password"]}'; " +
    $"document.getElementById('password2').value = '{Session["password2"]}'; " +
    $"showStep(2);", true);
+
+
+        }
+        protected void btnNextStep2_Click(object sender, EventArgs e)
+        {
+
+            // שמירה ב-Session
+            Session["mail"] = Request.Form["mail"].ToString();
+            Session["gender"] = Request.Form["gender"].ToString();
+            Session["date"] = Request.Form["date"].ToString();
+
+            string error = "Email already exsist";
+
+            mail = Request.Form["mail"].ToString();
+
+            if (!CheckFieldServer("mail", mail))
+            {
+                mailDiv.InnerText = error;
+
+
+                // כשיש שגיאה — מחזיר ערכים לשדות ✅
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "StayStep1",
+                    $"var __startStep = true; " +
+                    $"document.getElementById('mail').value = '{Session["mail"]}'; " +
+                    $"var genderVal = '{Session["gender"]}'; " +
+                    $"document.querySelector('input[name=\"gender\"][value=\"' + genderVal + '\"]').checked = true; " +
+                    $"document.getElementById('date').value = '{Session["date"]}'; " +
+                    $"showStep(2);", true);
+
+
+                return;
+            }
+
+            mailDiv.InnerText = "";
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "NextStep2",
+                $"var __startStep = true; step1Progress = 100; step2Progress = 100; " +
+                $"UsernameFlag = true; passwordFlag = true; password2Flag = true; " +
+                $"mailFlag = true; genderFlag = true; birthdayFlag = true; " +
+                $"document.getElementById('mail').value = '{Session["mail"]}'; " +
+                $"var genderVal = '{Session["gender"]}'; " +
+                $"document.querySelector('input[name=\"gender\"][value=\"' + genderVal + '\"]').checked = true; " +
+                $"document.getElementById('date').value = '{Session["date"]}'; " +
+                $"updateV(1); updateV(2); showStep(3);", true);
 
 
         }
@@ -129,7 +197,6 @@ namespace TheWorldOfHorses__
 
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                //con.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\aradl\source\repos\TheWorldOfHorses🐎\TheWorldOfHorses🐎\App_Data\Database1.mdf;Integrated Security=True";
                 con.Open();
 
                 string check = "SELECT COUNT(*) FROM Users WHERE " +
@@ -209,49 +276,7 @@ namespace TheWorldOfHorses__
         }
 
 
-        protected void btnNextStep2_Click(object sender, EventArgs e)
-        {
 
-            // שמירה ב-Session
-            Session["mail"] = Request.Form["mail"].ToString();
-            Session["gender"] = Request.Form["gender"].ToString();
-            Session["date"] = Request.Form["date"].ToString();
-
-            string error = "Email already exsist";
-
-            mail = Request.Form["mail"].ToString();
-
-            if (!CheckFieldServer("mail", mail))
-            {
-                mailDiv.InnerText = error;
-
-                // כשיש שגיאה — מחזיר ערכים לשדות ✅
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "StayStep1",
-                    $"var __startStep = true; " +
-                    $"document.getElementById('mail').value = '{Session["mail"]}'; " +
-                    $"var genderVal = '{Session["gender"]}'; " +
-                    $"document.querySelector('input[name=\"gender\"][value=\"' + genderVal + '\"]').checked = true; " +
-                    $"document.getElementById('date').value = '{Session["date"]}'; " +
-                    $"showStep(2);", true);
-
-
-                return;
-            }
-
-            mailDiv.InnerText = "";
-
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "NextStep2",
-                $"var __startStep = true; step1Progress = 100; step2Progress = 100; " +
-                $"UsernameFlag = true; passwordFlag = true; password2Flag = true; " +
-                $"mailFlag = true; genderFlag = true; birthdayFlag = true; " +
-                $"document.getElementById('mail').value = '{Session["mail"]}'; " +
-                $"var genderVal = '{Session["gender"]}'; " +
-                $"document.querySelector('input[name=\"gender\"][value=\"' + genderVal + '\"]').checked = true; " +
-                $"document.getElementById('date').value = '{Session["date"]}'; " +
-                $"updateV(1); updateV(2); showStep(3);", true);
-
-
-        }
 
     }
 }

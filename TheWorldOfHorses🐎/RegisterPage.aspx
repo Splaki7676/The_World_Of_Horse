@@ -54,8 +54,6 @@
                         <div class="step-buttons">
                             <button type="button" class="prev" style="visibility: hidden;"></button>
 
-                            <!--  <button type="button" class="next" onclick="nextStep(1)" runat="server" onserverclick="btnNextStep1_Click">Next</button>
--->
                             <asp:Button ID="btnNext1" runat="server"
                                 CssClass="next"
                                 Text="Next"
@@ -148,8 +146,6 @@
                         <div class="step-buttons">
                             <button type="button" class="prev" onclick="prevStep(3)">Previous</button>
 
-                            <!--     <input type="submit" class="next" value="Register" onsubmit="return checkRegister();" />
-                            -->
                             <asp:Button ID="btnRegister" runat="server"
                                 CssClass="next"
                                 Text="Register"
